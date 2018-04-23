@@ -1,0 +1,115 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.xq.ss.demo</groupId>
+  <artifactId>SSDemo</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>SSDemo</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>1.8</java.version>
+  </properties>
+
+  <dependencies>
+  	<!-- 需要打入的依赖 -->
+    <dependency>
+	    <groupId>commons-dbcp</groupId>
+	    <artifactId>commons-dbcp</artifactId>
+	    <version>1.4</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>fastjson</artifactId>
+	    <version>1.2.5</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.dom4j</groupId>
+	    <artifactId>dom4j</artifactId>
+	    <version>2.1.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.postgresql</groupId>
+	    <artifactId>postgresql</artifactId>
+	    <version>42.1.4</version>
+	</dependency>
+	<dependency>
+    	<groupId>org.apache.spark</groupId>
+    	<artifactId>spark-streaming-kafka-0-10_2.11</artifactId>
+    	<version>2.2.0</version>
+    </dependency>
+	
+	<!-- 不需要打入的依赖 -->
+	<dependency>
+	    <groupId>org.apache.spark</groupId>
+	    <artifactId>spark-streaming_2.11</artifactId>
+	    <version>2.1.0</version>
+	    <scope>provided</scope>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.spark</groupId>
+	    <artifactId>spark-sql_2.11</artifactId>
+	    <version>2.1.0</version>
+	    <scope>provided</scope>
+	</dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+	<dependency>
+		<groupId>com.tzxsaas</groupId>
+		<artifactId>phoenix_client</artifactId>
+		<version>4.7.0</version>
+		<classifier>shade</classifier>
+		<scope>provided</scope>
+	</dependency>
+  </dependencies>
+  
+  <build>
+      <plugins>
+          <!-- 指定JDK的编译版本 -->
+          <!-- <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <version>2.5.1</version>
+              <configuration>
+                  <source>${jdk.version}</source>
+                  <target>${jdk.version}</target>
+                  <showWarnings>true</showWarnings>
+              </configuration>
+          </plugin> -->
+             <plugin>  
+              <artifactId>maven-assembly-plugin</artifactId>  
+               <configuration>
+           			<source>${jdk.version}</source>
+                  	<target>${jdk.version}</target>  
+                    <archive>
+                         <manifest>  
+                             <mainClass></mainClass>  
+                         </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>  
+                    </descriptorRefs>
+               </configuration>
+               <executions>  
+                    <execution>  
+                        <id>make-assembly</id>  
+                        <phase>package</phase>  
+                         <goals>
+                             <goal>single</goal>  
+                         </goals>  
+                    </execution>  
+               </executions>  
+         </plugin>  
+      </plugins>
+  </build>
+  
+</project>
